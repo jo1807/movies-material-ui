@@ -8,18 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-
-interface IMovieData {
-  id: string;
-  averageReviewScore: string;
-  filmCompany: string;
-  title: string;
-}
+import { IMappedMovieData } from "../../utils/types";
 
 interface IMoviesTableProps {
-  movieData: IMovieData[];
-  selectedMovie: IMovieData | null;
-  handleSelectMovie: (movie: IMovieData) => void;
+  movieData: IMappedMovieData[];
+  selectedMovie: IMappedMovieData | null;
+  handleSelectMovie: (movie: IMappedMovieData) => void;
 }
 
 // const [order, setOrder] = useState<Order>('asc');
@@ -29,7 +23,7 @@ export const MoviesTable = ({
   movieData,
   selectedMovie,
   handleSelectMovie,
-}: any) => {
+}: IMoviesTableProps) => {
   console.log("movieData", movieData);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
