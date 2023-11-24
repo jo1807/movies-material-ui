@@ -1,31 +1,35 @@
+import { Typography } from "@mui/material";
 import { useState } from "react";
 
 import { mapMovieData } from "../../utils/helpers";
-import { IFilmCompaniesData, IMovieData } from "../../utils/types";
 import { MoviesTable } from "../moviesTable";
 import { ReviewForm } from "../reviewForm";
-import "./index.css";
+import {
+  IFilmCompaniesData,
+  IMappedMovieData,
+  IMovieData,
+} from "../../utils/types";
 
 interface IMovieDataBase {
   movies: IMovieData[];
   filmCompanies: IFilmCompaniesData[];
-  getMovies: () => void;
 }
 
-export const MovieDataBase = ({
-  movies,
-  filmCompanies,
-  getMovies,
-}: IMovieDataBase) => {
-  const [selectedMovie, setSelectedMovie] = useState<IMovieData | null>(null);
+export const MovieDataBase = ({ movies, filmCompanies }: IMovieDataBase) => {
+  const [selectedMovie, setSelectedMovie] = useState<IMappedMovieData | null>(
+    null
+  );
 
   const mappedMovies = mapMovieData(movies, filmCompanies);
-  const handleSelectMovie = (movie: IMovieData) => setSelectedMovie(movie);
+  const handleSelectMovie = (movie: IMappedMovieData) =>
+    setSelectedMovie(movie);
 
   return (
     <>
       <h1>Welcome to Movie database!</h1>
-      <p className="text">Total movies displayed: {movies.length}</p>
+      <Typography style={{ fontSize: "20px", marginBottom: "10px" }}>
+        Total movies displayed: {movies.length}
+      </Typography>
 
       <MoviesTable
         movieData={mappedMovies}
@@ -40,7 +44,10 @@ export const MovieDataBase = ({
       )}
 
       {selectedMovie ? (
-        <ReviewForm selectedMovie={selectedMovie} getMovies={getMovies} />
+        <ReviewForm
+          selectedMovie={selectedMovie}
+          setSelectedMovie={setSelectedMovie}
+        />
       ) : null}
     </>
   );
