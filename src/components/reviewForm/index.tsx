@@ -161,7 +161,6 @@ export const ReviewForm = ({
         },
         body: JSON.stringify(review),
       });
-      console.log(response);
       response.ok ? setIsSubmitted(true) : setIsError(true);
       setIsLoading(false);
     } catch {
