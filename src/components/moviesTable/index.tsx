@@ -16,18 +16,11 @@ interface IMoviesTableProps {
   handleSelectMovie: (movie: IMappedMovieData) => void;
 }
 
-// const [order, setOrder] = useState<Order>('asc');
-// const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-
 export const MoviesTable = ({
   movieData,
   selectedMovie,
   handleSelectMovie,
 }: IMoviesTableProps) => {
-  console.log("movieData", movieData);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("calories");
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,7 +32,7 @@ export const MoviesTable = ({
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {movieData.map((movie: any) => (
+          {movieData.map((movie) => (
             <StyledTableRow
               hover
               key={movie.title}
