@@ -9,7 +9,7 @@ interface IMoviesTableProps {
 
 const columns: GridColDef[] = [
   { field: "title", headerName: "Title", width: 200 },
-  { field: "averageReviewScore", headerName: "Review", width: 200 },
+  { field: "averageReviewScore", headerName: "Avg Review Score", width: 200 },
   {
     field: "filmCompany",
     headerName: "Film Company",
