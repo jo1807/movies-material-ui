@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MovieDataBase } from "./components/movieDatabase";
 import { IFilmCompaniesData, IMovieData } from "./utils/types";
 
@@ -10,26 +10,29 @@ export const App = () => {
     IFilmCompaniesData[]
   >([]);
 
-  useEffect(() => {
+  const getMovies = async () => {
     setIsLoading(true);
-    const getMovies = async () => {
-      try {
-        const moviesRes = await fetch("http://localhost:3000/movies");
-        const movieCompaniesRes = await fetch(
-          "http://localhost:3000/movieCompanies"
-        );
-        const moviesResJson = await moviesRes.json();
-        const movieCompaniesJson = await movieCompaniesRes.json();
+    try {
+      const moviesRes = await fetch("http://localhost:3000/movies");
+      const movieCompaniesRes = await fetch(
+        "http://localhost:3000/movieCompanies"
+      );
+      const moviesResJson = await moviesRes.json();
+      const movieCompaniesJson = await movieCompaniesRes.json();
 
-        setAllMovies(moviesResJson);
-        setAllMovieCompanies(movieCompaniesJson);
-        setIsLoading(false);
-      } catch {
-        setHasError(true);
-      }
-    };
-    getMovies();
-  }, []);
+      setAllMovies(moviesResJson);
+      setAllMovieCompanies(movieCompaniesJson);
+      setIsLoading(false);
+    } catch {
+      setHasError(true);
+    }
+  };
+
+  const getMoviesCB = useCallback(getMovies, []);
+
+  useEffect(() => {
+    getMoviesCB();
+  }, [getMoviesCB]);
 
   if (isLoading) {
     return <p className="text">Loading...</p>;
@@ -43,5 +46,11 @@ export const App = () => {
     );
   }
 
-  return <MovieDataBase movies={allMovies} filmCompanies={allMovieCompanies} />;
+  return (
+    <MovieDataBase
+      movies={allMovies}
+      filmCompanies={allMovieCompanies}
+      getMovies={getMoviesCB}
+    />
+  );
 };
