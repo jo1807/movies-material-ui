@@ -18,6 +18,7 @@ interface IFormContent {
   setIsSubmitted: (value: boolean) => void;
   setIsError: (value: boolean) => void;
   setSelectedMovie: (value: null) => void;
+  getMovies: () => void;
 }
 
 export const FormContent = ({
@@ -29,6 +30,7 @@ export const FormContent = ({
   setIsSubmitted,
   setIsError,
   setSelectedMovie,
+  getMovies,
 }: IFormContent) => {
   const [review, setReview] = useState("");
   const [showErrorValidation, setShowErrorValidation] = useState(false);
@@ -56,6 +58,7 @@ export const FormContent = ({
           onClick={() => {
             setIsSubmitted(false);
             setSelectedMovie(null);
+            getMovies();
           }}
           style={{ backgroundColor: "#2343D7", color: "white" }}
         >
