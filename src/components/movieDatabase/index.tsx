@@ -45,8 +45,8 @@ export const MovieDataBase = ({
       <Button
         style={{
           marginTop: "20px",
-          backgroundColor: "#004DA4",
-          color: "#E5EEF9",
+          backgroundColor: "#2343D7",
+          color: "white",
         }}
         onClick={getMovies}
       >
@@ -62,6 +62,7 @@ export const MovieDataBase = ({
         <ReviewForm
           selectedMovie={selectedMovie}
           setSelectedMovie={setSelectedMovie}
+          getMovies={getMovies}
         />
       ) : null}
     </>

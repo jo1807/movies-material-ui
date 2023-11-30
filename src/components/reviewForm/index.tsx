@@ -20,11 +20,13 @@ const modalBoxStyle = {
 interface IReviewForm {
   selectedMovie: IMappedMovieData;
   setSelectedMovie: (value: IMappedMovieData | null) => void;
+  getMovies: () => void;
 }
 
 export const ReviewForm = ({
   selectedMovie,
   setSelectedMovie,
+  getMovies,
 }: IReviewForm) => {
   const isMobile = useMediaQuery(`(max-width: 600px)`);
   const [showModal, setShowModal] = useState(false);
@@ -86,6 +88,7 @@ export const ReviewForm = ({
             setIsError={setIsError}
             setSelectedMovie={setSelectedMovie}
             successMessage={successMessage}
+            getMovies={getMovies}
           />
         </Box>
       </Modal>
@@ -101,6 +104,7 @@ export const ReviewForm = ({
       setIsError={setIsError}
       setSelectedMovie={setSelectedMovie}
       successMessage={successMessage}
+      getMovies={getMovies}
     />
   );
 };
