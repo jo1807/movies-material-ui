@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { ErrorContent } from "./components/errorPage";
 import { MovieDataBase } from "./components/movieDatabase";
 import { IFilmCompaniesData, IMovieData } from "./utils/types";
 
@@ -11,12 +12,18 @@ export const App = () => {
   >([]);
 
   const getMovies = async () => {
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       const moviesRes = await fetch("http://localhost:3000/movies");
       const movieCompaniesRes = await fetch(
         "http://localhost:3000/movieCompanies"
       );
+
+      if (moviesRes.status === 500 || movieCompaniesRes.status === 500) {
+        console.log(moviesRes.status);
+        setIsLoading(false);
+        setHasError(true);
+      }
       const moviesResJson = await moviesRes.json();
       const movieCompaniesJson = await movieCompaniesRes.json();
 
@@ -39,11 +46,7 @@ export const App = () => {
   }
 
   if (hasError) {
-    return (
-      <p className="text">
-        Oh no, it looks like something went wrong. Please try agian later.
-      </p>
-    );
+    return <ErrorContent setHasError={setHasError} getMovies={getMoviesCB} />;
   }
 
   return (
