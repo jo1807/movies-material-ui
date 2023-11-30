@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 import { mapMovieData } from "../../utils/helpers";
@@ -13,9 +13,14 @@ import {
 interface IMovieDataBase {
   movies: IMovieData[];
   filmCompanies: IFilmCompaniesData[];
+  getMovies: () => void;
 }
 
-export const MovieDataBase = ({ movies, filmCompanies }: IMovieDataBase) => {
+export const MovieDataBase = ({
+  movies,
+  filmCompanies,
+  getMovies,
+}: IMovieDataBase) => {
   const [selectedMovie, setSelectedMovie] = useState<IMappedMovieData | null>(
     null
   );
@@ -37,6 +42,16 @@ export const MovieDataBase = ({ movies, filmCompanies }: IMovieDataBase) => {
         handleSelectMovie={handleSelectMovie}
       />
 
+      <Button
+        style={{
+          marginTop: "20px",
+          backgroundColor: "#004DA4",
+          color: "#E5EEF9",
+        }}
+        onClick={getMovies}
+      >
+        Refresh movies
+      </Button>
       {selectedMovie ? (
         <p className="text">{`You have selected ${selectedMovie?.title}`}</p>
       ) : (
